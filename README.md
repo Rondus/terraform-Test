@@ -57,7 +57,7 @@ $ terraform apply --auto-approve terafrom_scripts/
 ### Check if Dynamic Inventory script is working
 ``` sh
 $ chmod +x DynamicInventory.py
-$ ./DynamicInventory.py
+$ ./DynamicInventory.py --list
 # Ansible command to setup k8s cluste using DynamicInventory.
 
 ###### <span style="color:red">Replace \<Pemfile> with your pemfile path in server </span>
