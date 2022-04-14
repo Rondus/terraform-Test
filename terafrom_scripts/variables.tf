@@ -17,7 +17,7 @@ variable "availability_zones" {
   default = ["us-west-2", "us-west-1"]
 }
 variable "kubernetes_ami" {
-  default = "ami-0c27a26eca5dc74fc"
+  default = "ami-0b28dfc7adc325ef4"
 }
 variable "master_instance_type" {
   default = "t2.medium"
