@@ -55,8 +55,16 @@ $ terraform apply --auto-approve terafrom_scripts/
 ```
 ## Configuration Management Using Ansible with Dynamic Inventory
 ### Check if Dynamic Inventory script is working
-``` sh
+``` 
 $ chmod +x DynamicInventory.py
+# Add default Region so that DynamicInventory will fetch host
+#temporarily
+export AWS_DEFAULT_REGION=us-west-2
+# Or Permanently
+mkdir ~.aws/config
+[default]
+region=us-west-2
+
 $ ./DynamicInventory.py --list
 # Ansible command to setup k8s cluste using DynamicInventory.
 
