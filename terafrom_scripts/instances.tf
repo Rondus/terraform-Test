@@ -23,12 +23,12 @@ resource "aws_instance" "web_Servers_A" {
   }
 
   # Copies the ssh_key file to new ec2.
-  provisioner "file" {
+  /*provisioner "file" {
     # Read ssh_key and copy to ansible
     content     = aws_key_pair.ansiblesshkey.public_key
     destination = "/home/ansible/.ssh/authorized_keys"
   }
-
+*/
 }
 
 resource "aws_instance" "web_Servers_B" {
@@ -46,12 +46,12 @@ resource "aws_instance" "web_Servers_B" {
   }
 
   # Copies the ssh_key file to new ec2.
-  provisioner "file" {
+  /*provisioner "file" {
     # Read ssh_key and copy to ansible
     content     = aws_key_pair.ansiblesshkey.public_key
     destination = "/home/ansible/.ssh/authorized_keys"
   }
-
+*/
 }
 
   resource "aws_instance" "web_Server_C" {
@@ -68,11 +68,11 @@ resource "aws_instance" "web_Servers_B" {
     Type = "Internal_Instance"
   }
 
-  # Copies the ssh_key file to new ec2.
+/* # Copies the ssh_key file to new ec2.
   provisioner "file" {
     # Read ssh_key and copy to ansible
     content     = aws_key_pair.ansiblesshkey.public_key
     destination = "/home/ansible/.ssh/authorized_keys"
   }
-
+*/
 }
