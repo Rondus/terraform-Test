@@ -15,7 +15,7 @@ resource "aws_instance" "web_Servers_A" {
   vpc_security_group_ids = [aws_security_group.test_sg.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
-#  user_data              = "${file("terafrom_scripts/create_ansible_user.sh")}"
+
 
   tags = {
     Name = "web_Servers_A"
@@ -38,7 +38,7 @@ resource "aws_instance" "web_Server_B" {
   vpc_security_group_ids = [aws_security_group.test_sg.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
-#  user_data              = "${file("terafrom_scripts/create_ansible_user.sh")}"
+
 
   tags = {
     Name = "web_Servers_B"
@@ -52,7 +52,7 @@ resource "aws_instance" "web_Server_B" {
   vpc_security_group_ids = [aws_security_group.test_sg1.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
-#  user_data              = "${file("terafrom_scripts/create_ansible_user.sh")}"
+
 
   tags = {
     Name = "web_Servers_C"
