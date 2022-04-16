@@ -20,3 +20,4 @@ resource "aws_security_group" "test_sg1" {
     protocol    = "-1"
     cidr_blocks = ["173.69.38.20/27950"]
   }
+}
