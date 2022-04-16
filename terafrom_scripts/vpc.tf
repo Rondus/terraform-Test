@@ -16,9 +16,24 @@ resource "aws_internet_gateway" "test_vpc_igw" {
 
 resource "nat_gateways" "test_vpc_ngw" {
   vpc_id = aws_vpc.test.id
-  subnet_ids   = module.public_subnets.subnet_ids
+  subnet_ids   = resource.aws_subnet.test_subnets_ids
   tags = {
     Name = "test_vpc_ngw"
+  }
+}
+# Use NAT Gateways in private subnets to provide internet access
+
+resource "private_subnets" {
+  count              = length(var.subnets_cidr)
+  vpc_id             = aws_vpc.test.id
+  nat_gateway_count  = resource.nat_gateways.nat_gateway_count
+  nat_gateway_ids    = resource.nat_gateways.nat_gateway_ids
+  cidr_block         = element(var.subnets_cidr, count.index)
+  subnet_count       = 2  
+  availability_zone       = element(var.availability_zones, count.index)
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "test_subnets_${count.index + 1}"
   }
 }
 
