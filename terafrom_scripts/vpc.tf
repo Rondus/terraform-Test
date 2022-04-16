@@ -14,6 +14,13 @@ resource "aws_internet_gateway" "test_vpc_igw" {
   }
 }
 
+resource "aws_nat_gateway" "test_vpc_igw" {
+  vpc_id = aws_vpc.test.id
+  tags = {
+    Name = "test_vpc_ngw"
+  }
+}
+
 resource "aws_subnet" "test_subnets" {
   count                   = length(var.subnets_cidr)
   vpc_id                  = aws_vpc.test.id
