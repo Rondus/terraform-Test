@@ -7,7 +7,7 @@ I have used terraform for provisioning the intrstructure which include; VPC, Int
 AmazonEC2FullACCESS
 AmazonVPCFullACCESS
 $ sudo useradd itoro
-$ echo "ansible  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/itoro
+$ echo "itoro  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/itoro
 $ sudo su - itoro
 # Enable PassowrdLogin and assign password to itoro user
 
