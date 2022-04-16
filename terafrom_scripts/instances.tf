@@ -4,22 +4,22 @@ resource "tls_private_key" "ansible" {
   rsa_bits  = 4096
 }
 # Get ssh_key
-resource "aws_key_pair" "ansiblesshkey" {
+resource "aws_key_pair" "ansiblekey" {
   public_key = tls_private_key.ansible.public_key_openssh
 }
 
-resource "aws_instance" "kubernetes_Servers" {
+resource "aws_instance" "web_Servers_A" {
   count                  = 1
-  ami                    = var.kubernetes_ami
+  ami                    = var.test_ami
   instance_type          = var.master_instance_type
-  vpc_security_group_ids = [aws_security_group.kubernetes_sg.id]
-  subnet_id              = element(aws_subnet.kubernetes_subnets.*.id, count.index)
+  vpc_security_group_ids = [aws_security_group.test_sg.id]
+  subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
 #  user_data              = "${file("terafrom_scripts/create_ansible_user.sh")}"
 
   tags = {
-    Name = "Kubernetes_Servers"
-    Type = "Kubernetes_Master"
+    Name = "web_Servers_A"
+    Type = "web_Instance"
   }
 
   # Copies the ssh_key file to new ec2.
@@ -31,18 +31,32 @@ resource "aws_instance" "kubernetes_Servers" {
 
 }
 
-resource "aws_instance" "kubernetes_Workers" {
-  count                  = 2
-  ami                    = var.kubernetes_ami
+resource "aws_instance" "web_Server_B" {
+  count                  = 1
+  ami                    = var.test_ami
   instance_type          = var.worker_instance_type
-  vpc_security_group_ids = [aws_security_group.kubernetes_sg.id]
-  subnet_id              = element(aws_subnet.kubernetes_subnets.*.id, count.index)
+  vpc_security_group_ids = [aws_security_group.test_sg.id]
+  subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
 #  user_data              = "${file("terafrom_scripts/create_ansible_user.sh")}"
 
   tags = {
-    Name = "Kubernetes_Servers"
-    Type = "Kubernetes_Worker"
+    Name = "web_Servers_B"
+    Type = "web_Instance"
+  }
+
+  resource "aws_instance" "web_Server_C" {
+  count                  = 1
+  ami                    = var.test_ami
+  instance_type          = var.worker_instance_type
+  vpc_security_group_ids = [aws_security_group.test_sg1.id]
+  subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
+  key_name               = var.key_name
+#  user_data              = "${file("terafrom_scripts/create_ansible_user.sh")}"
+
+  tags = {
+    Name = "web_Servers_C"
+    Type = "Internal_Instance"
   }
 
   # Copies the ssh_key file to new ec2.
