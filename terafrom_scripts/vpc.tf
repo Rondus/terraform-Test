@@ -15,6 +15,9 @@ resource "aws_internet_gateway" "test_vpc_igw" {
 }
 
 resource "nat_gateways" "test_vpc_ngw" {
+  source  = "claranet/vpc-modules/aws//modules/nat-gateways"
+  version = "0.4.0"
+  
   vpc_id = aws_vpc.test.id
   subnet_ids   = resource.aws_subnet.test_subnets_ids
   tags = {
