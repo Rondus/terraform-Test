@@ -30,7 +30,7 @@ $ vi .bashrc
 ```
 #### Clone terraform scripts
 ``` sh
- https://github.com/Rondus/terraform-Test.git
+ git clone https://github.com/Rondus/terraform-Test.git
  cd terraform-Test
 ```
 ###### <span style="color:orange"> Update Key Name in variables.tf file before executing terraform script </span>
