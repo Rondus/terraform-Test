@@ -31,19 +31,28 @@ resource "aws_instance" "web_Servers_A" {
 
 }
 
-resource "aws_instance" "web_Server_B" {
+resource "aws_instance" "web_Servers_B" {
   count                  = 1
   ami                    = var.test_ami
-  instance_type          = var.worker_instance_type
+  instance_type          = var.master_instance_type
   vpc_security_group_ids = [aws_security_group.test_sg.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
 
 
   tags = {
-    Name = "web_Servers_B"
+    Name = "web_Servers_A"
     Type = "web_Instance"
   }
+
+  # Copies the ssh_key file to new ec2.
+  provisioner "file" {
+    # Read ssh_key and copy to ansible
+    content     = aws_key_pair.ansiblesshkey.public_key
+    destination = "/home/ansible/.ssh/authorized_keys"
+  }
+
+}
 
   resource "aws_instance" "web_Server_C" {
   count                  = 1
@@ -53,7 +62,7 @@ resource "aws_instance" "web_Server_B" {
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
 
-
+  
   tags = {
     Name = "web_Servers_C"
     Type = "Internal_Instance"
