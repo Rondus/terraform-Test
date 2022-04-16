@@ -23,7 +23,7 @@ resource "nat_gateways" "test_vpc_ngw" {
 }
 # Use NAT Gateways in private subnets to provide internet access
 
-resource "private_subnets" {
+resource "aws_subnet" "private_subnets" {
   count              = length(var.subnets_cidr)
   vpc_id             = aws_vpc.test.id
   nat_gateway_count  = resource.nat_gateways.nat_gateway_count
