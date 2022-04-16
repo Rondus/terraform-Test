@@ -14,6 +14,15 @@ resource "aws_internet_gateway" "test_vpc_igw" {
   }
 }
 
+# NAT Gateways - Outbound Communication
+  enable_nat_gateway = var.vpc_enable_nat_gateway
+  single_nat_gateway = var.vpc_single_nat_gateway
+
+  # VPC DNS Parameters
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+
 resource "nat_gateways" "test_vpc_ngw" {
   source  = "claranet/vpc-modules/aws//modules/nat-gateways"
   version = "0.4.0"
