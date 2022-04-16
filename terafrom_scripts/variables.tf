@@ -10,18 +10,18 @@ variable "vpc_cidr" {
 }
 variable "subnets_cidr" {
   type    = list(string)
-  default = ["172.0.0.0/25", "172.0.0.128/25"]
+  default = ["172.0.0.0/26","172.0.0.64/26", "172.0.0.128/25"]
 }
 variable "availability_zones" {
   type    = list(string)
-  default = ["us-west-2", "us-west-1"]
+  default = ["us-west-2a", "us-west-2b"]
 }
-variable "kubernetes_ami" {
+variable "test_ami" {
   default = "ami-0b28dfc7adc325ef4"
 }
-variable "master_instance_type" {
-  default = "t2.medium"
+variable "web_instance_type" {
+  default = "t2.small"
 }
-variable "worker_instance_type" {
-  default = "t2.micro"
+variable "internal_instance_type" {
+  default = "t2.small"
 }
