@@ -41,7 +41,7 @@ resource "aws_instance" "web_Servers_B" {
 
 
   tags = {
-    Name = "web_Servers_A"
+    Name = "web_Servers_B"
     Type = "web_Instance"
   }
 
@@ -57,7 +57,7 @@ resource "aws_instance" "web_Servers_B" {
   resource "aws_instance" "web_Server_C" {
   count                  = 1
   ami                    = var.test_ami
-  instance_type          = var.web_instance_type
+  instance_type          = var.internal_instance_type
   vpc_security_group_ids = [aws_security_group.test_sg1.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
