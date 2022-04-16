@@ -14,41 +14,6 @@ resource "aws_internet_gateway" "test_vpc_igw" {
   }
 }
 
-# NAT Gateways - Outbound Communication
-  enable_nat_gateway = var.vpc_enable_nat_gateway
-  single_nat_gateway = var.vpc_single_nat_gateway
-
-  # VPC DNS Parameters
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-
-
-resource "nat_gateways" "test_vpc_ngw" {
-  source  = "claranet/vpc-modules/aws//modules/nat-gateways"
-  version = "0.4.0"
-  
-  vpc_id = aws_vpc.test.id
-  subnet_ids   = resource.aws_subnet.test_subnets_ids
-  tags = {
-    Name = "test_vpc_ngw"
-  }
-}
-# Use NAT Gateways in private subnets to provide internet access
-
-resource "aws_subnet" "private_subnets" {
-  count              = length(var.subnets_cidr)
-  vpc_id             = aws_vpc.test.id
-  nat_gateway_count  = resource.nat_gateways.nat_gateway_count
-  nat_gateway_ids    = resource.nat_gateways.nat_gateway_ids
-  cidr_block         = element(var.subnets_cidr, count.index)
-  subnet_count       = 2  
-  availability_zone       = element(var.availability_zones, count.index)
-  map_public_ip_on_launch = true
-  tags = {
-    Name = "test_subnets_${count.index + 1}"
-  }
-}
-
 resource "aws_subnet" "test_subnets" {
   count                   = length(var.subnets_cidr)
   vpc_id                  = aws_vpc.test.id
