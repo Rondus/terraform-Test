@@ -11,7 +11,7 @@ resource "aws_key_pair" "ansiblekey" {
 resource "aws_instance" "web_Servers_A" {
   count                  = 1
   ami                    = var.test_ami
-  instance_type          = var.master_instance_type
+  instance_type          = var.web_instance_type
   vpc_security_group_ids = [aws_security_group.test_sg.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
@@ -34,7 +34,7 @@ resource "aws_instance" "web_Servers_A" {
 resource "aws_instance" "web_Servers_B" {
   count                  = 1
   ami                    = var.test_ami
-  instance_type          = var.master_instance_type
+  instance_type          = var.web_instance_type
   vpc_security_group_ids = [aws_security_group.test_sg.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
@@ -57,7 +57,7 @@ resource "aws_instance" "web_Servers_B" {
   resource "aws_instance" "web_Server_C" {
   count                  = 1
   ami                    = var.test_ami
-  instance_type          = var.worker_instance_type
+  instance_type          = var.web_instance_type
   vpc_security_group_ids = [aws_security_group.test_sg1.id]
   subnet_id              = element(aws_subnet.test_subnets.*.id, count.index)
   key_name               = var.key_name
