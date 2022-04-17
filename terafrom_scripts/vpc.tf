@@ -14,11 +14,35 @@ resource "aws_internet_gateway" "test_vpc_igw" {
   }
 }
 
-resource "aws_subnet" "test_subnets" {
-  count                   = length(var.subnets_cidr)
+resource "aws_subnet" "test_subnetsA" {
+  count                   = length(var.subnets_cidrA)
   vpc_id                  = aws_vpc.test.id
-  cidr_block              = element(var.subnets_cidr, count.index)
-  availability_zone       = element(var.availability_zones, count.index)
+  cidr_block              = element(var.subnets_cidrA)
+  availability_zone       = element(var.availability_zones)
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "test_subnetsA"
+    Tier = "Public"
+  }
+}
+
+resource "aws_subnet" "test_subnetsB" {
+  count                   = length(var.subnets_cidrB)
+  vpc_id                  = aws_vpc.test.id
+  cidr_block              = element(var.subnets_cidrB)
+  availability_zone       = element(var.availability_zones)
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "test_subnetsB"
+    Tier = "Private"
+  }
+}
+
+resource "aws_subnet" "test_subnetsC" {
+  count                   = length(var.subnets_cidrC)
+  vpc_id                  = aws_vpc.test.id
+  cidr_block              = element(var.subnets_cidrC)
+  availability_zone       = element(var.availability_zones)
   map_public_ip_on_launch = true
   tags = {
     Name = "test_subnets_${count.index + 1}"
@@ -26,11 +50,13 @@ resource "aws_subnet" "test_subnets" {
   }
 }
 
+
+
 resource "aws_lb" "test_subnets" {
-  name               = "basic-load-balancer"
+  name    = "basic-load-balancer"
   vpc_id = aws_vpc.test.id
   load_balancer_type = "application"
-  subnets  = resource.aws_subnet.test_subnets.2
+  subnets  = resource.aws_subnet.test_subnetsA
 
   enable_cross_zone_load_balancing = true
 }
