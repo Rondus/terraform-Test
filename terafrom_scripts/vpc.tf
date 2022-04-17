@@ -21,9 +21,19 @@ resource "aws_subnet" "test_subnets" {
   availability_zone       = element(var.availability_zones, count.index)
   map_public_ip_on_launch = true
   tags = {
-    Name = "test_subnets_${count.index + 1}"
+    //Name = "test_subnets_${count.index + 1}"
+    Tier = "Public"
   }
 }
+
+resource "aws_lb" "test_subnets" {
+  name               = "basic-load-balancer"
+  load_balancer_type = "application"
+  subnets            = resource.aws_subnet.test_subnets.ids
+
+  enable_cross_zone_load_balancing = true
+}
+
 
 resource "aws_route_table" "test_public_rt" {
   vpc_id = aws_vpc.test.id
