@@ -28,8 +28,9 @@ resource "aws_subnet" "test_subnets" {
 
 resource "aws_lb" "test_subnets" {
   name               = "basic-load-balancer"
+  vpc_id = aws_vpc.test.id
   load_balancer_type = "application"
-  subnets            = resource.aws_subnet.test_subnets.ids
+  subnets  = resource.aws_subnet.test_subnets.ids
 
   enable_cross_zone_load_balancing = true
 }
