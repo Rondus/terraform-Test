@@ -8,10 +8,20 @@ variable "key_name" {
 variable "vpc_cidr" {
   default = "172.0.0.0/24"
 }
-variable "subnets_cidr" {
+variable "subnets_cidrA" {
   type    = list(string)
-  default = ["172.0.0.0/26","172.0.0.64/26", "172.0.0.128/25"]
+  default = ["172.0.0.0/26"]
 }
+variable "subnets_cidrB" {
+  type    = list(string)
+  default = ["172.0.0.64/26"]
+}
+variable "subnets_cidrC" {
+  type    = list(string)
+  default = ["172.0.0.128/25"]
+}
+
+
 variable "availability_zones" {
   type    = list(string)
   default = ["us-west-2a", "us-west-2b"]
