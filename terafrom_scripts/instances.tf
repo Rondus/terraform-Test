@@ -38,8 +38,7 @@ resource "aws_instance" "web_Servers_B" {
     Type = "web_Instance"
   }
 
-  # Copies the ssh_key file to new ec2.
-  
+   
 }
 
   resource "aws_instance" "web_Server_C" {
