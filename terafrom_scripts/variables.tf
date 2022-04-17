@@ -17,7 +17,7 @@ variable "availability_zones" {
   default = ["us-west-2a", "us-west-2b"]
 }
 variable "test_ami" {
-  default = "ami-0b28dfc7adc325ef4"
+  default = "ami-0892d3c7ee96c0bf7"
 }
 variable "web_instance_type" {
   default = "t2.small"
