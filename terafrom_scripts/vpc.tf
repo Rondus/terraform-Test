@@ -21,7 +21,7 @@ resource "aws_subnet" "test_subnets" {
   availability_zone       = element(var.availability_zones, count.index)
   map_public_ip_on_launch = true
   tags = {
-    //Name = "test_subnets_${count.index + 1}"
+    Name = "test_subnets_${count.index + 1}"
     Tier = "Public"
   }
 }
