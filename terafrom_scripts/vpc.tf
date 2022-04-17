@@ -53,3 +53,6 @@ resource "aws_route_table_association" "rt_sub_association" {
   subnet_id      = element(aws_subnet.test_subnets.*.id, count.index)
   route_table_id = aws_route_table.test_public_rt.id
 }
+  single_nat_gateway = true
+  enable_dns_hostnames = true
+  enable_dns_support = true
